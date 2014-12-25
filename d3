@@ -30,7 +30,7 @@ function dragmove() {
   rightInnercircle
       .attr("cx", Math.max(radius, Math.min(width - radius, d3.event.x +200)))
       .attr("cy", Math.max(radius, Math.min(height - radius, d3.event.y)));
-    
+    rightOuttercircle.style("cursor", "nesw-resize");
  console.log("end");
 }
 
@@ -43,7 +43,8 @@ function dragmove() {
       rightOuttercircle = circle(svg2, d3.event.x +200 ,d3.event.y + 50,53);
       rightInnercircle = circle(svg2, d3.event.x +200 ,d3.event.y + 50,50);
     
-     var drag = d3.behavior.drag().on("dragstart", dragStart).on("drag", dragmove);      
+     var drag = d3.behavior.drag().on("dragstart", dragStart).on("drag", dragmove);
+     //var drag2 = d3.behavior.drag().on("mouseover", dragStart).on("drag", dragmove); 
      rightOuttercircle.style("fill", "steelblue");
      leftOuttercircle.style("fill", "steelblue");
      console.log("start2");
