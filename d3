@@ -1,11 +1,13 @@
 var currentCircle;
 var circle1;
 var svg = d3.select("#div1").append("svg").attr("width", 200).attr("height", 200);
-var width = 240,
-    height = 125,
+var width = 1000,
+    height = 1000,
     radius = 20;
-var outtercircle;
-var innercircle;
+var rightOuttercircle;
+var rightInnercircle;
+var leftOuttercircle;
+var leftInnercircle;
 function circle(svg,x, y, r){
      return svg.append("circle").attr("r", r).attr("cx", x).attr("cy",y);
 }
@@ -16,29 +18,40 @@ function dragStart(){
 
 function dragmove() {
      console.log("start");
-  outtercircle
-      .attr("cx", Math.max(radius, Math.min(width - radius, d3.event.x)))
+   leftOuttercircle
+      .attr("cx", Math.max(radius, Math.min(width - radius, d3.event.x + 50)))
       .attr("cy", Math.max(radius, Math.min(height - radius, d3.event.y)));
-  innercircle
-      .attr("cx", Math.max(radius, Math.min(width - radius, d3.event.x)))
+  leftInnercircle
+      .attr("cx", Math.max(radius, Math.min(width - radius, d3.event.x + 50)))
+      .attr("cy", Math.max(radius, Math.min(height - radius, d3.event.y)));   
+  rightOuttercircle
+      .attr("cx", Math.max(radius, Math.min(width - radius, d3.event.x +200)))
       .attr("cy", Math.max(radius, Math.min(height - radius, d3.event.y)));
+  rightInnercircle
+      .attr("cx", Math.max(radius, Math.min(width - radius, d3.event.x +200)))
+      .attr("cy", Math.max(radius, Math.min(height - radius, d3.event.y)));
+    
  console.log("end");
 }
 
 
 
  function callbackClick(){
-     var svg2 = d3.select("#div2").append("svg").attr("width", 300).attr("height", 500);
+     var svg2 = d3.select("#div2").append("svg").attr("width", 500).attr("height", 800);
+      leftOuttercircle = circle(svg2, d3.event.x +50 ,d3.event.y + 50,53);
+      leftInnercircle = circle(svg2, d3.event.x +50 ,d3.event.y + 50,50);     
+      rightOuttercircle = circle(svg2, d3.event.x +200 ,d3.event.y + 50,53);
+      rightInnercircle = circle(svg2, d3.event.x +200 ,d3.event.y + 50,50);
     
-      outtercircle = circle(svg2, d3.event.x +50 ,d3.event.y + 50,23);
-      innercircle = circle(svg2, d3.event.x +50 ,d3.event.y + 50,20);
      var drag = d3.behavior.drag().on("dragstart", dragStart).on("drag", dragmove);      
-     outtercircle.style("fill", "steelblue");
+     rightOuttercircle.style("fill", "steelblue");
+     leftOuttercircle.style("fill", "steelblue");
      console.log("start2");
-     innercircle.call(drag);
+     rightInnercircle.call(drag);
+     leftInnercircle.call(drag);
      console.log("start3");
 }
 
-circle1 = circle(svg,10,10,10);
+circle1 = circle(svg,60,60,50);
 
 circle1.on("click", callbackClick);
